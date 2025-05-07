@@ -29,7 +29,7 @@ credenciais_json = json.dumps(credenciais_dict)
 credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopos)
 
 # Mostra o diretório de trabalho atual
-print("Diretório atual:", os.getcwd())
+# print("Diretório atual:", os.getcwd())
 
 
 
