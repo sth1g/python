@@ -11,6 +11,7 @@ import gspread
 import pandas as pd
 
 # Carrega as credenciais do secrets.toml
+# Carrega as credenciais do secrets.toml
 users = st.secrets["login"]["users"]
 passwords = st.secrets["login"]["passwords"]
 
@@ -27,20 +28,18 @@ if not st.session_state.logado:
     user_input = st.text_input("Usuário")
     pass_input = st.text_input("Senha", type="password")
 
-    login_clicked = st.button("Entrar")
-
-    if login_clicked:
+    if st.button("Entrar"):
         if user_input in users:
             idx = users.index(user_input)
             if pass_input == passwords[idx]:
                 st.session_state.logado = True
                 st.session_state.usuario = user_input
-                st.success("Login realizado com sucesso!")
+                st.rerun()  # <- Roda o app de novo imediatamente após o login
             else:
                 st.error("Senha incorreta.")
         else:
             st.error("Usuário não encontrado.")
-    
+
     st.stop()
 
 # In[2]:
