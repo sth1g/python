@@ -217,14 +217,14 @@ st.write(f"Mês Selecionado: {mes_nome}")
 # ----------- PREENCHE CUSTO DO MÊS NO CAMPO "Custo Líquido (R$)" -----------
 
 # Obter o custo do produto no mês selecionado
-custo_mes = dados_produto[str(mes_num)]  # Colunas de 1 a 12
+custo_mes = dados_produto.get(str(mes_num))  # Colunas de 1 a 12
 
-# Verifica se o custo_mes existe e é um valor numérico válido
-if custo_mes and str(custo_mes).isnumeric():
+# Verifica se custo_mes existe e é um valor numérico válido
+if custo_mes is not None and custo_mes != "" and str(custo_mes).replace('.', '', 1).isdigit():
     custo_liquido = float(custo_mes) / 100
+    st.write(f"Custo líquido para o mês selecionado: R$ {custo_liquido:.2f}")
 else:
     st.warning("Não existe custo cadastrado para o mês selecionado, por favor selecione outro mês e tente novamente.")
-
 
 
 # Exibir o campo como desabilitado, apenas leitura
