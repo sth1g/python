@@ -181,23 +181,39 @@ mes_num = meses_dict[mes_nome]
 # Mostrar o mês selecionado (opcional)
 st.write(f"Mês Selecionado: {mes_nome}")
 
+# ----------- CSS para remover os botões + e - -----------
+st.markdown("""
+    <style>
+    /* Remove as setas de number input no Chrome, Safari, Edge */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Remove as setas no Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # ----------- PREENCHE CUSTO DO MÊS NO CAMPO "Custo Líquido (R$)" -----------
+
 # Obter o custo do produto no mês selecionado
 custo_mes = dados_produto[str(mes_num)]  # Colunas de 1 a 12
-
 
 # Caso o custo esteja em centavos, dividimos por 100 para converter para reais
 custo_liquido = float(custo_mes) / 100
 
-# Preencher o campo de "Custo Líquido" com o valor do custo do mês, sem permitir edição
-custo_liquido = st.number_input(
+# Exibir o campo como desabilitado, apenas leitura
+st.number_input(
     "Custo Líquido (R$):",
     min_value=0.0,
     step=0.01,
     value=custo_liquido,
-    disabled=True  # ← Isso bloqueia a edição
+    disabled=True
 )
-
 
 # Inputs manuais
 col3, col4, col7 = st.columns(3)
