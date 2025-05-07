@@ -42,6 +42,15 @@ if not st.session_state.logado:
 
     st.stop()
 
+
+if st.session_state.logado:
+    st.success(f"🔓 Bem-vindo, {st.session_state.usuario}!")
+
+    if st.button("Sair"):
+        st.session_state.logado = False
+        st.session_state.usuario = ""
+        st.rerun()
+
 # In[2]:
 
 # Defina o escopo de acesso
