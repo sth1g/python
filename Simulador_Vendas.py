@@ -246,7 +246,7 @@ if preco_venda > 0 and quantidade > 0:
     # Preços sugeridos para margens-alvo
     st.markdown("### Preço sugerido para margens-alvo:")
     for alvo in [0.01, 0.02, 0.03, 0.04, 0.05]:
-        preco_alvo = custo_unitario / (1 - alvo)
+        preco_alvo = preco_liquido / (1 - alvo)
         st.write(f"{int(alvo * 100)}% de margem → R$ {preco_alvo:.2f}")
 else:
     st.warning("Informe um preço de venda e uma quantidade válidos para realizar os cálculos.")
