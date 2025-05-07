@@ -11,6 +11,7 @@ import gspread
 import pandas as pd
 
 # Carrega as credenciais do secrets.toml
+# Carrega as credenciais do secrets.toml
 users = st.secrets["login"]["users"]
 passwords = st.secrets["login"]["passwords"]
 
@@ -39,13 +40,6 @@ if not st.session_state.logado:
         else:
             st.error("Usuário não encontrado.")
     st.stop()
-
-# Se logado, mostra conteúdo do app
-st.subheader(f"Bem-vindo, {st.session_state.usuario} ")
-if st.button("Sair"):
-    st.session_state.logado = False
-    st.session_state.usuario = ""
-    st.experimental_rerun()
 
 # In[2]:
 
