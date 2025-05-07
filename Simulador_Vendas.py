@@ -7,8 +7,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
-import locale
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 
 # In[2]:
