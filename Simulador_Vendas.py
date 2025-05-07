@@ -228,6 +228,8 @@ else:
 
 
 # Exibir o campo como desabilitado, apenas leitura
+custo_liquido = custo_liquido if custo_mes and str(custo_mes).isnumeric() else 0.0
+
 st.number_input(
     "Custo Líquido (R$):",
     min_value=0.0,
@@ -235,6 +237,7 @@ st.number_input(
     value=custo_liquido,
     disabled=True
 )
+
 
 
 # Inputs manuais (colocando dentro de um botão "Gerar Simulação")
