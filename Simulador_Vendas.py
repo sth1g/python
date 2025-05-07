@@ -4,26 +4,28 @@
 # In[1]:
 
 
-import gspread
+import streamlit as st
+import json
 from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
 
 
 # In[2]:
 
 
 # Defina o escopo de acesso
-scope = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
+scopos = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
 
 # In[3]:
 
 
-import os
+# Carrega o JSON do secret do Streamlit
+json_credenciais = st.secrets["google_credentials"]
+# Converte o dict em string JSON para simular um arquivo
+credenciais_dict = dict(json_credenciais)
+credenciais_json = json.dumps(credenciais_dict)
+# Cria as credenciais a partir do JSON em string
+credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopos)
 
 # Mostra o diretório de trabalho atual
 print("Diretório atual:", os.getcwd())
