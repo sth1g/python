@@ -10,28 +10,42 @@ from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 import pandas as pd
 
-# Carrega as credenciais do arquivo secrets
+# Carrega as credenciais do secrets.toml
 users = st.secrets["login"]["users"]
 passwords = st.secrets["login"]["passwords"]
 
-# Interface de login
-user_input = st.text_input("Usuário")
-pass_input = st.text_input("Senha", type="password")
+# Inicializa sessão
+if "logado" not in st.session_state:
+    st.session_state.logado = False
+if "usuario" not in st.session_state:
+    st.session_state.usuario = ""
 
-# Verificação
-if user_input in users:
-    idx = users.index(user_input)
-    if pass_input == passwords[idx]:
-        st.success(f"Bem-vindo, {user_input}!")
-        # O restante do app vem aqui
-    else:
-        st.error("Senha incorreta.")
-        st.stop()
-else:
-    if user_input:  # Exibe erro apenas se o campo não estiver vazio
-        st.error("Usuário não encontrado.")
+# Se não estiver logado, exibe tela de login
+if not st.session_state.logado:
+    st.title("🔐 Login")
+
+    user_input = st.text_input("Usuário")
+    pass_input = st.text_input("Senha", type="password")
+
+    if st.button("Entrar"):
+        if user_input in users:
+            idx = users.index(user_input)
+            if pass_input == passwords[idx]:
+                st.session_state.logado = True
+                st.session_state.usuario = user_input
+                st.experimental_rerun()
+            else:
+                st.error("Senha incorreta.")
+        else:
+            st.error("Usuário não encontrado.")
     st.stop()
 
+# Se logado, mostra conteúdo do app
+st.title(f"Bem-vindo, {st.session_state.usuario} 👋")
+if st.button("Sair"):
+    st.session_state.logado = False
+    st.session_state.usuario = ""
+    st.experimental_rerun()
 
 # In[2]:
 
