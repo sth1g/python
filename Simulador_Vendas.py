@@ -215,6 +215,7 @@ st.number_input(
     disabled=True
 )
 
+
 # Inputs manuais
 col3, col4, col7 = st.columns(3)
 with col3:
