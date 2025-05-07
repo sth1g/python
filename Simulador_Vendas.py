@@ -38,7 +38,7 @@ credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(creden
 
 # Caminho para seu arquivo de credenciais
 credenciais = ServiceAccountCredentials.from_json_keyfile_name(
-    "simuladorvendas-860da5675453.json", scope
+    "simuladorvendas-860da5675453.json", escope
 )
 
 
