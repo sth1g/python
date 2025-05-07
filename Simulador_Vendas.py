@@ -13,7 +13,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 
 # Defina o escopo de acesso
-scopos = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+escopos = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
 
 # In[3]:
