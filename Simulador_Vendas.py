@@ -111,7 +111,7 @@ col5, col6 = st.columns(2)
 with col5:
     produtos = custos_df["DESC_PROD"].unique().tolist()
     produtos_sorted = sorted(produtos)  # Ordena os produtos de A a Z
-    produto_selecionado = st.selectbox("Produto", options=produtos)
+    produto_selecionado = st.selectbox("Produto",options=produtos_sorted)
 
 with col6:
     ufs = uf_df["UF"].unique().tolist()
