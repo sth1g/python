@@ -150,7 +150,7 @@ produtos_filtrados = custos_df[custos_df["FILIAL"] == numero_filial]["DESC_PROD"
 
 # Se não houver produtos para a unidade de produção selecionada, mostrar mensagem
 if not produtos_filtrados:
-    st.warning(f"Não há produtos disponíveis para a filial {unidade_producao}.")
+    st.warning(f"Não há produtos disponíveis para a filial '{unidade_producao}'.")
 else:
     produtos_sorted = sorted(produtos_filtrados)  # Ordena os produtos de A a Z
     
@@ -171,7 +171,7 @@ else:
         if not dados_produto.empty:
             dados_produto = dados_produto.iloc[0]
         else:
-            st.error("Produto não encontrado para a filial selecionada.")
+            st.error(f"Produto '{produto_selecionado}' não encontrado para a filial '{unidade_producao}'.")
 
 
 
