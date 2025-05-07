@@ -172,7 +172,7 @@ st.markdown("---")
 st.markdown("""
     <style>
         h4 {
-            font-size: 24px;  # Ajuste o tamanho da fonte conforme necessário
+            font-size: 20px;  # Ajuste o tamanho da fonte conforme necessário
             font-weight: bold;  # Deixa o título mais destacado
         }
     </style>
@@ -182,11 +182,11 @@ st.markdown("""
 st.markdown("""
     <style>
         h5 {
-            font-size: 12px;  # Ajuste o tamanho da fonte conforme necessário
+            font-size: 14px;  # Ajuste o tamanho da fonte conforme necessário
             font-style: italic;  # Coloca o subtítulo em itálico
         }
     </style>
-    <h5>Preencha os valores conforme necessário. Deixe os campos em branco para valores não aplicáveis.</h5>
+    <h5>Preencha os valores conforme necessário.</h5>
 """, unsafe_allow_html=True)
 
 
