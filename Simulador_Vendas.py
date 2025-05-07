@@ -122,7 +122,7 @@ st.markdown(
         <img src="data:image/png;base64,{img_base64}" width="150" style="margin-right: 20px;">
         <div style="text-align: center;">
             <h1 style="margin: 0;">Simulador de Margem</h1>
-            <h4>Damare Alimentos:</h4>
+            <h4>Damare Alimentos</h4>
         </div>
     </div>
     """,
