@@ -120,12 +120,13 @@ st.markdown(
     f"""
     <div style="display: flex; align-items: center;">
         <img src="data:image/png;base64,{img_base64}" width="150" style="margin-right: 20px;">
-        <h1 style="margin: 0;">Simulador de Margem 
-        Damare Alimentos</h1>
+        <h1 style="margin: 0;">Simulador de Margem</h1>
+        <h4>Selecione o mês para buscar o custo do produto:</h4>
     </div>
     """,
     unsafe_allow_html=True
 )
+
 
 
 def formatar_reais(valor):
