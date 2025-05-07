@@ -159,6 +159,19 @@ with col6:
     ufs = uf_df["UF"].unique().tolist()
     uf_selecionado = st.selectbox("UF", options=ufs)
 
+# Verifica se há produtos selecionados
+if produto_selecionado:
+    # Recupera os dados do produto selecionado, se houver algum
+    dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado]
+    
+    if not dados_produto.empty:
+        dados_produto = dados_produto.iloc[0]
+    else:
+        st.error("Produto não encontrado para a filial selecionada.")
+else:
+    st.warning("Selecione um produto válido.")
+
+
 
 # Linha separadora
 st.markdown("---")
