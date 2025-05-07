@@ -181,22 +181,7 @@ mes_num = meses_dict[mes_nome]
 # Mostrar o mês selecionado (opcional)
 st.write(f"Mês Selecionado: {mes_nome}")
 
-# ----------- CSS para remover os botões + e - -----------
-st.markdown("""
-    <style>
-    /* Remove as setas de number input no Chrome, Safari, Edge */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
 
-    /* Remove as setas no Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 # ----------- PREENCHE CUSTO DO MÊS NO CAMPO "Custo Líquido (R$)" -----------
 
