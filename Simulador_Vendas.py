@@ -110,6 +110,7 @@ col5, col6 = st.columns(2)
 
 with col5:
     produtos = custos_df["DESC_PROD"].unique().tolist()
+    produtos_sorted = sorted(produtos)  # Ordena os produtos de A a Z
     produto_selecionado = st.selectbox("Produto", options=produtos)
 
 with col6:
@@ -123,7 +124,15 @@ st.markdown("---")
 dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado].iloc[0]
 
 # Mês (Definindo a seleção do mês aqui)
-st.markdown("### Selecione o Mês")
+st.markdown("""
+    <style>
+        h4 {
+            font-size: 20px;  # Ajuste o tamanho da fonte conforme necessário
+            font-weight: bold;  # Deixa o título mais destacado
+        }
+    </style>
+    <h4>Selecione o mês para buscar o custo do produto:</h4>
+""", unsafe_allow_html=True)
 
 # Criar um dicionário com Nome -> Número (ex: "Janeiro" -> 1)
 meses_dict = dict(zip(meses_df["MES_NM"], meses_df["MES_NUM"]))
@@ -178,18 +187,6 @@ st.markdown("""
     </style>
     <h4>Preenchimento de Impostos e Descontos</h4>
 """, unsafe_allow_html=True)
-
-st.markdown("""
-    <style>
-        h5 {
-            font-size: 14px;  # Ajuste o tamanho da fonte conforme necessário
-            font-style: italic;  # Coloca o subtítulo em itálico
-        }
-    </style>
-    <h5>Preencha os valores conforme necessário.</h5>
-""", unsafe_allow_html=True)
-
-
 
 col8, col9, col10, col11 = st.columns(4)
 with col8:
