@@ -10,6 +10,30 @@ from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 import pandas as pd
 
+# Login
+users = st.secrets["login"]["users"]
+passwords = st.secrets["login"]["passwords"]
+
+user_input = st.selectbox("Usuário", users)
+pass_input = st.text_input("Senha", type="password")
+
+# Verificação
+if user_input in users:
+    idx = users.index(user_input)
+    if pass_input == passwords[idx]:
+        st.success(f"Bem-vindo, {user_input}!")
+
+        # AQUI COMEÇA O RESTANTE DO APP
+        # ----------------------------------
+        # exemplo:
+        # df = pd.read_csv(...)
+        # st.markdown("Simulador de Vendas")
+
+    else:
+        st.error("Senha incorreta.")
+        st.stop()  # Interrompe o app se a senha estiver errada
+else:
+    st.stop()
 
 
 # In[2]:
