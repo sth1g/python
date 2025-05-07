@@ -131,7 +131,6 @@ def formatar_reais(valor):
     return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 # Unidades de produção e saída
-# Unidades de produção e saída
 fabricas = filial_df[filial_df["TIPO"] == "FABRICA"]["NOME"].tolist()
 todas_unidades = filial_df["NOME"].tolist()
 
@@ -142,13 +141,12 @@ with col1:
 with col2:
     unidade_saida = st.selectbox("Unidade de Saída", options=todas_unidades)
 
-# Produto e UF lado a lado
-st.markdown("### Selecione Produto e UF de Venda")
-
-col5, col6 = st.columns(2)
-
 # Filtra os produtos com base na unidade de produção selecionada
-produtos_filtrados = custos_df[custos_df["FILIAL"] == unidade_producao]["DESC_PROD"].unique().tolist()
+# Primeiro, obtém o número da filial que corresponde à unidade de produção selecionada
+numero_filial = filial_df[filial_df["NOME"] == unidade_producao]["FILIAL"].iloc[0]
+
+# Filtra os produtos na aba de Custos, onde a filial corresponde ao número da filial da unidade de produção
+produtos_filtrados = custos_df[custos_df["FILIAL"] == numero_filial]["DESC_PROD"].unique().tolist()
 
 # Se não houver produtos para a unidade de produção selecionada, mostrar mensagem
 if not produtos_filtrados:
@@ -157,6 +155,7 @@ else:
     produtos_sorted = sorted(produtos_filtrados)  # Ordena os produtos de A a Z
     
     # Exibe o selectbox com os produtos filtrados
+    col5, col6 = st.columns(2)
     with col5:
         produto_selecionado = st.selectbox("Produto", options=produtos_sorted)
 
@@ -173,7 +172,6 @@ else:
             dados_produto = dados_produto.iloc[0]
         else:
             st.error("Produto não encontrado para a filial selecionada.")
-
 
 
 
