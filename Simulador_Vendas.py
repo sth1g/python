@@ -41,7 +41,7 @@ if not st.session_state.logado:
     st.stop()
 
 # Se logado, mostra conteúdo do app
-st.title(f"Bem-vindo, {st.session_state.usuario} 👋")
+st.title(f"Bem-vindo, {st.session_state.usuario} ")
 if st.button("Sair"):
     st.session_state.logado = False
     st.session_state.usuario = ""
@@ -244,26 +244,22 @@ if preco_venda > 0 and quantidade > 0:
     custo_unitario = custo_liquido + frete_unitario
     custo_total = custo_unitario * quantidade
     faturamento = preco_venda * quantidade
-    impostos = ((icms/100) + (pis/100) + (cofins/100) + (descontos/100)) * faturamento
+    taxa_total = (icms + pis + cofins + descontos) / 100
+    impostos = taxa_total * faturamento
     preco_liquido = (faturamento - impostos) / quantidade
     margem = (preco_liquido - custo_unitario) / custo_unitario
     resultado = faturamento - custo_total - impostos
 
-    # Resultados
-
     st.markdown("### Resultados")
     st.write(f"**Faturamento:** {formatar_reais(faturamento)}")
-    st.write(f"**Custo  Total:** {formatar_reais(custo_total)}")
+    st.write(f"**Custo Total:** {formatar_reais(custo_total)}")
     st.write(f"**Resultado:** {formatar_reais(resultado)}")
-    st.metric("Margem Real", f"{margem:.2%}")  # Usa porcentagem real
+    st.metric("Margem Real", f"{margem:.2%}")
 
-    # Preços sugeridos para margens-alvo
+    # Preços sugeridos para margens-alvo (com impostos)
     st.markdown("### Preço sugerido para margens-alvo:")
-    taxa_total = (icms + pis + cofins + descontos) / 100
-
-for alvo in [0.01, 0.02, 0.03, 0.04, 0.05]:
-    preco_alvo = custo_unitario * (1 + alvo) / (1 - taxa_total)
-    st.write(f"{int(alvo * 100)}% de margem → R$ {preco_alvo:.2f}")
-
+    for alvo in [0.01, 0.02, 0.03, 0.04, 0.05]:
+        preco_alvo = custo_unitario * (1 + alvo) / (1 - taxa_total)
+        st.write(f"{int(alvo * 100)}% de margem → R$ {preco_alvo:.2f}")
 else:
     st.warning("Informe um preço de venda e uma quantidade válidos para realizar os cálculos.")
