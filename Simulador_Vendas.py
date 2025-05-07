@@ -120,7 +120,8 @@ st.markdown(
     f"""
     <div style="display: flex; align-items: center;">
         <img src="data:image/png;base64,{img_base64}" width="120" style="margin-right: 15px;">
-        <h1 style="margin: 0;">Simulador de Margem Real</h1>
+        <h1 style="margin: 0;">Simulador de Margem /n
+        Damare Alimentos</h1>
     </div>
     """,
     unsafe_allow_html=True
@@ -134,12 +135,16 @@ def formatar_reais(valor):
 fabricas = filial_df[filial_df["TIPO"] == "FABRICA"]["NOME"].tolist()
 todas_unidades = filial_df["NOME"].tolist()
 
-col1, col2 = st.columns(2)
+col1, col2, col6 = st.columns(2)
 with col1:
     unidade_producao = st.selectbox("Unidade de Produção (somente Fábricas)", options=fabricas)
 
 with col2:
     unidade_saida = st.selectbox("Unidade de Saída", options=todas_unidades)
+
+with col6:
+        ufs = uf_df["UF"].unique().tolist()
+        uf_selecionado = st.selectbox("UF Destino", options=ufs)
 
 # Filtra os produtos com base na unidade de produção selecionada
 # Primeiro, obtém o número da filial que corresponde à unidade de produção selecionada
@@ -155,13 +160,10 @@ else:
     produtos_sorted = sorted(produtos_filtrados)  # Ordena os produtos de A a Z
     
     # Exibe o selectbox com os produtos filtrados
-    col5, col6 = st.columns(2)
-    with col5:
+
         produto_selecionado = st.selectbox("Produto", options=produtos_sorted)
 
-    with col6:
-        ufs = uf_df["UF"].unique().tolist()
-        uf_selecionado = st.selectbox("UF", options=ufs)
+    
 
     # Verifica se um produto foi selecionado
     if produto_selecionado:
