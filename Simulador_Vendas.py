@@ -169,8 +169,27 @@ st.markdown("---")
 
 # Inputs manuais Sob Impostos
 
-st.markdown("### Insira os valores dos impostos e descontos")
-st.markdown("<h4>Caso nao tenha, basta deixa zerado</h4>", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        h4 {
+            font-size: 24px;  # Ajuste o tamanho da fonte conforme necessário
+            font-weight: bold;  # Deixa o título mais destacado
+        }
+    </style>
+    <h4>Configuração de Impostos e Descontos</h4>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+        h5 {
+            font-size: 16px;  # Ajuste o tamanho da fonte conforme necessário
+            font-style: italic;  # Coloca o subtítulo em itálico
+        }
+    </style>
+    <h5>Preencha os valores conforme necessário. Deixe os campos em branco para valores não aplicáveis.</h5>
+""", unsafe_allow_html=True)
+
+
 
 col8, col9, col10, col11 = st.columns(4)
 with col8:
