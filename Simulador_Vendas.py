@@ -119,8 +119,8 @@ img_base64 = imagem_para_base64("logo.png")
 st.markdown(
     f"""
     <div style="display: flex; align-items: center;">
-        <img src="data:image/png;base64,{img_base64}" width="120" style="margin-right: 15px;">
-        <h1 style="margin: 0;">Simulador de Margem /n
+        <img src="data:image/png;base64,{img_base64}" width="150" style="margin-right: 20px;">
+        <h1 style="margin: 0;">Simulador de Margem 
         Damare Alimentos</h1>
     </div>
     """,
@@ -137,7 +137,7 @@ todas_unidades = filial_df["NOME"].tolist()
 
 col1, col2, col6 = st.columns(3)
 with col1:
-    unidade_producao = st.selectbox("Unidade de Produção (somente Fábricas)", options=fabricas)
+    unidade_producao = st.selectbox("Fabrica de Produção)", options=fabricas)
 
 with col2:
     unidade_saida = st.selectbox("Unidade de Saída", options=todas_unidades)
