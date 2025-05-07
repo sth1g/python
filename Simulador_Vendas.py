@@ -3,15 +3,15 @@
 
 # In[1]:
 
-
 import streamlit as st
 import json
 import os
 from oauth2client.service_account import ServiceAccountCredentials
+import gspread
+import pandas as pd
 
 
 # In[2]:
-
 
 # Defina o escopo de acesso
 escopos = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
@@ -19,48 +19,27 @@ escopos = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/
 
 # In[3]:
 
-
-# Carrega o JSON do secret do Streamlit
+# Carrega as credenciais do secret do Streamlit
 json_credenciais = st.secrets["google_credentials"]
 # Converte o dict em string JSON para simular um arquivo
 credenciais_dict = dict(json_credenciais)
 credenciais_json = json.dumps(credenciais_dict)
 # Cria as credenciais a partir do JSON em string
-# credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopos)
-
-# Mostra o diretório de trabalho atual
-# print("Diretório atual:", os.getcwd())
-
-
-
-# In[4]:
-
-
-# Caminho para seu arquivo de credenciais
-credenciais = ServiceAccountCredentials.from_json_keyfile_name(
-    "simuladorvendas-860da5675453.json", escopos
-)
-
-
-# In[5]:
-
+credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopos)
 
 # Autenticar e acessar a planilha
 gc = gspread.authorize(credenciais)
 
 
-# In[6]:
-
+# In[4]:
 
 # Abra a planilha e a aba desejada
 planilha = gc.open("Simulador_Damare")  # substitua pelo nome correto
 
 
+# In[5]:
 
-# In[7]:
-
-
-# ----------- LEITURA DOS DADOS -----------
+# ----------- LEITURA DOS DADOS ----------- 
 # Custos
 custos_sheet = planilha.worksheet("Custos")
 custos_df = pd.DataFrame(custos_sheet.get_all_records())
@@ -77,25 +56,18 @@ uf_df = pd.DataFrame(uf_sheet.get_all_records())
 uf_df = uf_df.rename(columns=lambda x: x.strip())
 
 # Mes
-
 meses_sheet = planilha.worksheet("Mes")
 meses_df = pd.DataFrame(meses_sheet.get_all_records())
 meses_df = meses_df.rename(columns=lambda x: x.strip())
 
-
-
-
-
-# In[8]:
-
+# In[6]:
 
 import streamlit as st
 
 
-# In[22]:
+# In[7]:
 
-
-# ----------- INTERFACE STREAMLIT -----------
+# ----------- INTERFACE STREAMLIT ----------- 
 # Configuração inicial
 st.set_page_config(page_title="Simulador de Margem", layout="wide")
 st.title("📊 Simulador de Margem Real")
@@ -115,8 +87,6 @@ with col1:
 with col2:
     unidade_saida = st.selectbox("Unidade de Saída", options=todas_unidades)
 
-
-
 # Produto e UF lado a lado
 st.markdown("### Selecione Produto e UF de Venda")
 
@@ -130,14 +100,11 @@ with col6:
     ufs = uf_df["UF"].unique().tolist()
     uf_selecionado = st.selectbox("UF", options=ufs)
 
-
 # Linha separadora
 st.markdown("---")
 
-
 # Recupera dados padrão do produto selecionado
 dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado].iloc[0]
-
 
 # Mês (Definindo a seleção do mês aqui)
 st.markdown("### Selecione o Mês")
@@ -147,7 +114,6 @@ mes_num = st.selectbox("Mês (Número)", options=meses)
 # Encontrar o nome do mês
 mes_nome = meses_df[meses_df["MES_NUM"] == mes_num]["MES_NM"].iloc[0]
 st.write(f"Mês Selecionado: {mes_nome}")
-
 
 # ----------- PREENCHE CUSTO DO MÊS NO CAMPO "Custo Líquido (R$)" -----------
 
@@ -159,9 +125,6 @@ custo_liquido = float(custo_mes) / 100
 
 # Preencher o campo de "Custo Líquido" com o valor do custo do mês
 custo_liquido = st.number_input("Custo Líquido (R$):", min_value=0.0, step=0.01, value=custo_liquido)
-
-
-
 
 # Inputs manuais
 col3, col4, col7 = st.columns(3)
@@ -177,9 +140,7 @@ with col4:
         st.error("Digite uma quantidade válida (ex: 1.000)")
 
 with col7:
-
     frete_unitario  = st.number_input("Frete Unitário", step=0.01, format="%.2f")
-
 
 # Linha separadora
 st.markdown("---")
@@ -188,7 +149,6 @@ st.markdown("---")
 
 st.markdown("### Insira os valores dos impostos e descontos")
 st.markdown("<h4>Caso nao tenha, basta deixa zerado</h4>", unsafe_allow_html=True)
-
 
 col8, col9, col10, col11 = st.columns(4)
 with col8:
@@ -216,7 +176,6 @@ if preco_venda > 0 and quantidade > 0:
     margem = (preco_liquido - custo_unitario) / custo_unitario
     resultado = faturamento - custo_total - impostos
 
-
     # Resultados
 
     st.markdown("### Resultados")
@@ -232,17 +191,3 @@ if preco_venda > 0 and quantidade > 0:
         st.write(f"{int(alvo * 100)}% de margem → R$ {preco_alvo:.2f}")
 else:
     st.warning("Informe um preço de venda e uma quantidade válidos para realizar os cálculos.")
-
-
-# In[10]:
-
-
-# jupyter nbconvert --to script Simulador_Vendas.ipynb
-# streamlit run Simulador_Vendas.py
-
-
-# In[ ]:
-
-
-
-
