@@ -70,12 +70,18 @@ import streamlit as st
 
 # ----------- INTERFACE STREAMLIT ----------- 
 # Configuração inicial
-st.set_page_config(page_title="Simulador de Margem", layout="wide")
+import base64
+
+def imagem_para_base64(caminho_imagem):
+    with open(caminho_imagem, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+img_base64 = imagem_para_base64("logo.png")
 
 st.markdown(
-    """
+    f"""
     <div style="display: flex; align-items: center;">
-        <img src="https://dexappstorage01.blob.core.windows.net/users/assets/4c9150e3-e4df-495f-842e-3aff3751d8c1/1729794697_damare_lOGO.png" alt="Logo" width="120" style="margin-right: 15px;">
+        <img src="data:image/png;base64,{img_base64}" width="120" style="margin-right: 15px;">
         <h1 style="margin: 0;">Simulador de Margem Real</h1>
     </div>
     """,
