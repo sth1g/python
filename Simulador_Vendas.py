@@ -22,7 +22,7 @@ if "usuario" not in st.session_state:
 
 # Se não estiver logado, exibe tela de login
 if not st.session_state.logado:
-    st.title("🔐 Login")
+    st.subheader("🔐 Insira suas credenciais para realizar Login")
 
     user_input = st.text_input("Usuário")
     pass_input = st.text_input("Senha", type="password")
@@ -41,7 +41,7 @@ if not st.session_state.logado:
     st.stop()
 
 # Se logado, mostra conteúdo do app
-st.title(f"Bem-vindo, {st.session_state.usuario} ")
+st.subheader(f"Bem-vindo, {st.session_state.usuario} ")
 if st.button("Sair"):
     st.session_state.logado = False
     st.session_state.usuario = ""
