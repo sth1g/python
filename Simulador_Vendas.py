@@ -149,27 +149,31 @@ col5, col6 = st.columns(2)
 
 # Filtra os produtos com base na unidade de produção selecionada
 produtos_filtrados = custos_df[custos_df["FILIAL"] == unidade_producao]["DESC_PROD"].unique().tolist()
-produtos_sorted = sorted(produtos_filtrados)  # Ordena os produtos de A a Z
 
-# Exibe o selectbox com os produtos filtrados
-with col5:
-    produto_selecionado = st.selectbox("Produto", options=produtos_sorted)
-
-with col6:
-    ufs = uf_df["UF"].unique().tolist()
-    uf_selecionado = st.selectbox("UF", options=ufs)
-
-# Verifica se há produtos selecionados
-if produto_selecionado:
-    # Recupera os dados do produto selecionado, se houver algum
-    dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado]
-    
-    if not dados_produto.empty:
-        dados_produto = dados_produto.iloc[0]
-    else:
-        st.error("Produto não encontrado para a filial selecionada.")
+# Se não houver produtos para a unidade de produção selecionada, mostrar mensagem
+if not produtos_filtrados:
+    st.warning(f"Não há produtos disponíveis para a filial {unidade_producao}.")
 else:
-    st.warning("Selecione um produto válido.")
+    produtos_sorted = sorted(produtos_filtrados)  # Ordena os produtos de A a Z
+    
+    # Exibe o selectbox com os produtos filtrados
+    with col5:
+        produto_selecionado = st.selectbox("Produto", options=produtos_sorted)
+
+    with col6:
+        ufs = uf_df["UF"].unique().tolist()
+        uf_selecionado = st.selectbox("UF", options=ufs)
+
+    # Verifica se um produto foi selecionado
+    if produto_selecionado:
+        # Recupera os dados do produto selecionado
+        dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado]
+        
+        if not dados_produto.empty:
+            dados_produto = dados_produto.iloc[0]
+        else:
+            st.error("Produto não encontrado para a filial selecionada.")
+
 
 
 
