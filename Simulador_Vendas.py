@@ -161,7 +161,7 @@ else:
     
     # Exibe o selectbox com os produtos filtrados
 
-        produto_selecionado = st.selectbox("Produto", options=produtos_sorted)
+    produto_selecionado = st.selectbox("Produto", options=produtos_sorted)
 
     
 
