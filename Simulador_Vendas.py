@@ -176,13 +176,13 @@ st.markdown("""
             font-weight: bold;  # Deixa o título mais destacado
         }
     </style>
-    <h4>Configuração de Impostos e Descontos</h4>
+    <h4>Preenchimento de Impostos e Descontos</h4>
 """, unsafe_allow_html=True)
 
 st.markdown("""
     <style>
         h5 {
-            font-size: 16px;  # Ajuste o tamanho da fonte conforme necessário
+            font-size: 12px;  # Ajuste o tamanho da fonte conforme necessário
             font-style: italic;  # Coloca o subtítulo em itálico
         }
     </style>
