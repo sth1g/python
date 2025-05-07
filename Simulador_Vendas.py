@@ -124,17 +124,23 @@ dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado].iloc[0]
 
 # Mês (Definindo a seleção do mês aqui)
 st.markdown("### Selecione o Mês")
-meses = meses_df["MES_NUM"].unique().tolist()  # Lista de meses em número
-mes_num = st.selectbox("Mês (Número)", options=meses)
 
-# Encontrar o nome do mês
-mes_nome = meses_df[meses_df["MES_NUM"] == mes_num]["MES_NM"].iloc[0]
+# Criar um dicionário com Nome -> Número (ex: "Janeiro" -> 1)
+meses_dict = dict(zip(meses_df["MES_NM"], meses_df["MES_NUM"]))
+
+# Selectbox com nomes visíveis
+mes_nome = st.selectbox("Mês", options=list(meses_dict.keys()))
+
+# Pega o número correspondente ao nome selecionado
+mes_num = meses_dict[mes_nome]
+
+# Mostrar o mês selecionado (opcional)
 st.write(f"Mês Selecionado: {mes_nome}")
 
 # ----------- PREENCHE CUSTO DO MÊS NO CAMPO "Custo Líquido (R$)" -----------
-
 # Obter o custo do produto no mês selecionado
-custo_mes = dados_produto[str(mes_num)]  # A coluna vai de 1 a 12, onde cada número representa um mês
+custo_mes = dados_produto[str(mes_num)]  # Colunas de 1 a 12
+
 
 # Caso o custo esteja em centavos, dividimos por 100 para converter para reais
 custo_liquido = float(custo_mes) / 100
