@@ -11,6 +11,7 @@ import gspread
 import pandas as pd
 
 
+
 # In[2]:
 
 # Defina o escopo de acesso
@@ -70,7 +71,17 @@ import streamlit as st
 # ----------- INTERFACE STREAMLIT ----------- 
 # Configuração inicial
 st.set_page_config(page_title="Simulador de Margem", layout="wide")
-st.title("📊 Simulador de Margem Real")
+
+st.markdown(
+    """
+    <div style="display: flex; align-items: center;">
+        <img src="https://dexappstorage01.blob.core.windows.net/users/assets/4c9150e3-e4df-495f-842e-3aff3751d8c1/1729794697_damare_lOGO.png" alt="Logo" width="60" style="margin-right: 15px;">
+        <h1 style="margin: 0;">Simulador de Margem Real</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
 
 def formatar_reais(valor):
