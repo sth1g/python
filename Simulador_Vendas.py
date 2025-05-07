@@ -11,7 +11,6 @@ import gspread
 import pandas as pd
 
 # Carrega as credenciais do secrets.toml
-# Carrega as credenciais do secrets.toml
 users = st.secrets["login"]["users"]
 passwords = st.secrets["login"]["passwords"]
 
@@ -132,6 +131,7 @@ def formatar_reais(valor):
     return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 # Unidades de produção e saída
+# Unidades de produção e saída
 fabricas = filial_df[filial_df["TIPO"] == "FABRICA"]["NOME"].tolist()
 todas_unidades = filial_df["NOME"].tolist()
 
@@ -147,14 +147,18 @@ st.markdown("### Selecione Produto e UF de Venda")
 
 col5, col6 = st.columns(2)
 
+# Filtra os produtos com base na unidade de produção selecionada
+produtos_filtrados = custos_df[custos_df["FILIAL"] == unidade_producao]["DESC_PROD"].unique().tolist()
+produtos_sorted = sorted(produtos_filtrados)  # Ordena os produtos de A a Z
+
+# Exibe o selectbox com os produtos filtrados
 with col5:
-    produtos = custos_df["DESC_PROD"].unique().tolist()
-    produtos_sorted = sorted(produtos)  # Ordena os produtos de A a Z
-    produto_selecionado = st.selectbox("Produto",options=produtos_sorted)
+    produto_selecionado = st.selectbox("Produto", options=produtos_sorted)
 
 with col6:
     ufs = uf_df["UF"].unique().tolist()
     uf_selecionado = st.selectbox("UF", options=ufs)
+
 
 # Linha separadora
 st.markdown("---")
