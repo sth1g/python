@@ -26,7 +26,7 @@ json_credenciais = st.secrets["google_credentials"]
 credenciais_dict = dict(json_credenciais)
 credenciais_json = json.dumps(credenciais_dict)
 # Cria as credenciais a partir do JSON em string
-credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopos)
+# credenciais = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(credenciais_json), escopos)
 
 # Mostra o diretório de trabalho atual
 # print("Diretório atual:", os.getcwd())
