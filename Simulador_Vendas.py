@@ -189,8 +189,15 @@ custo_mes = dados_produto[str(mes_num)]  # Colunas de 1 a 12
 # Caso o custo esteja em centavos, dividimos por 100 para converter para reais
 custo_liquido = float(custo_mes) / 100
 
-# Preencher o campo de "Custo Líquido" com o valor do custo do mês
-custo_liquido = st.number_input("Custo Líquido (R$):", min_value=0.0, step=0.01, value=custo_liquido)
+# Preencher o campo de "Custo Líquido" com o valor do custo do mês, sem permitir edição
+custo_liquido = st.number_input(
+    "Custo Líquido (R$):",
+    min_value=0.0,
+    step=0.01,
+    value=custo_liquido,
+    disabled=True  # ← Isso bloqueia a edição
+)
+
 
 # Inputs manuais
 col3, col4, col7 = st.columns(3)
