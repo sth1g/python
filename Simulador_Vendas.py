@@ -205,7 +205,7 @@ st.number_input(
 )
 
 
-# Inputs manuais
+# Inputs manuais (colocando dentro de um botão "Gerar Simulação")
 col3, col4, col7 = st.columns(3)
 with col3:
     preco_venda = st.number_input("Preço de Venda (R$):", step=0.01, format="%.2f")
@@ -219,13 +219,9 @@ with col4:
         st.error("Digite uma quantidade válida (ex: 1.000)")
 
 with col7:
-    frete_unitario  = st.number_input("Frete Unitário", step=0.01, format="%.2f")
-
-# Linha separadora
-st.markdown("---")
+    frete_unitario = st.number_input("Frete Unitário", step=0.01, format="%.2f")
 
 # Inputs manuais Sob Impostos
-
 st.markdown("""
     <style>
         h4 {
@@ -252,27 +248,27 @@ with col11:
 # Linha separadora
 st.markdown("---")
 
-# ----------- CÁLCULOS -----------
-if preco_venda > 0 and quantidade > 0:
-    custo_unitario = custo_liquido + frete_unitario
-    custo_total = custo_unitario * quantidade
-    faturamento = preco_venda * quantidade
-    taxa_total = (icms + pis + cofins + descontos) / 100
-    impostos = taxa_total * faturamento
-    preco_liquido = (faturamento - impostos) / quantidade
-    margem = (preco_liquido - custo_unitario) / custo_unitario
-    resultado = faturamento - custo_total - impostos
+if st.button("Gerar Simulação"):
+    if preco_venda > 0 and quantidade > 0:
+        custo_unitario = custo_liquido + frete_unitario
+        custo_total = custo_unitario * quantidade
+        faturamento = preco_venda * quantidade
+        taxa_total = (icms + pis + cofins + descontos) / 100
+        impostos = taxa_total * faturamento
+        preco_liquido = (faturamento - impostos) / quantidade
+        margem = (preco_liquido - custo_unitario) / custo_unitario
+        resultado = faturamento - custo_total - impostos
 
-    st.markdown("### Resultados")
-    st.write(f"**Faturamento:** {formatar_reais(faturamento)}")
-    st.write(f"**Custo Total:** {formatar_reais(custo_total)}")
-    st.write(f"**Resultado:** {formatar_reais(resultado)}")
-    st.metric("Margem Real", f"{margem:.2%}")
+        st.markdown("### Resultados")
+        st.write(f"**Faturamento:** {formatar_reais(faturamento)}")
+        st.write(f"**Custo Total:** {formatar_reais(custo_total)}")
+        st.write(f"**Resultado:** {formatar_reais(resultado)}")
+        st.metric("Margem Real", f"{margem:.2%}")
 
-    # Preços sugeridos para margens-alvo (com impostos)
-    st.markdown("### Preço sugerido para margens-alvo:")
-    for alvo in [0.01, 0.02, 0.03, 0.04, 0.05]:
-        preco_alvo = custo_unitario * (1 + alvo) / (1 - taxa_total)
-        st.write(f"{int(alvo * 100)}% de margem → R$ {preco_alvo:.2f}")
-else:
-    st.warning("Informe um preço de venda e uma quantidade válidos para realizar os cálculos.")
+        # Preços sugeridos para margens-alvo (com impostos)
+        st.markdown("### Preço sugerido para margens-alvo:")
+        for alvo in [0.01, 0.02, 0.03, 0.04, 0.05]:
+            preco_alvo = custo_unitario * (1 + alvo) / (1 - taxa_total)
+            st.write(f"{int(alvo * 100)}% de margem → R$ {preco_alvo:.2f}")
+    else:
+        st.warning("Informe um preço de venda e uma quantidade válidos para realizar os cálculos.")
