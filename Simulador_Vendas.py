@@ -187,7 +187,7 @@ else:
 st.markdown("---")
 
 # Recupera dados padrão do produto selecionado
-dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado].iloc[0]
+## dados_produto = custos_df[custos_df["DESC_PROD"] == produto_selecionado].iloc[0]
 
 # Mês (Definindo a seleção do mês aqui)
 st.markdown("""
